@@ -1,0 +1,9 @@
+.DS_Store
+logs/
+*.log
+.env
+config/config.local.php
+vendor/
+uploads/
+*.sql
+config/db_credentials.php

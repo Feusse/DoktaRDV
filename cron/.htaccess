@@ -1,0 +1,15 @@
+# Dans /cron, SEUL cron_rappels.php est joignable par le web (protégé par sa clé).
+<IfModule mod_authz_core.c>
+  Require all denied
+  <Files "cron_rappels.php">
+    Require all granted
+  </Files>
+</IfModule>
+<IfModule !mod_authz_core.c>
+  Order allow,deny
+  Deny from all
+  <Files "cron_rappels.php">
+    Order allow,deny
+    Allow from all
+  </Files>
+</IfModule>

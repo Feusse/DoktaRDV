@@ -1,0 +1,30 @@
+# ============================================================
+# DOKTA-RDV — .htaccess racine (Apache)
+# ============================================================
+Options -Indexes
+ServerSignature Off
+
+# Fichiers sensibles : jamais servis directement
+<FilesMatch "(^\.|\.(sql|log|md|bak|old|orig|swp|ini|env|sh|yml|yaml|lock|json)$|^composer\.)">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# Cache : ne jamais mettre en cache les pages dynamiques
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+</IfModule>
+
+# Redirection HTTPS (à décommenter une fois le certificat SSL actif)
+# <IfModule mod_rewrite.c>
+#   RewriteEngine On
+#   RewriteCond %{HTTPS} !=on
+#   RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+#   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# </IfModule>
